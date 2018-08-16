@@ -33,10 +33,16 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:1.1.1"
     implementation "android.arch.lifecycle:runtime:1.1.1"
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
 
-    compile 'com.google.dagger:dagger:2.10'
+    compile 'com.google.dagger:dagger:2.13'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.10'
     compile 'com.google.dagger:dagger-android:2.10'
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.10'
+
+    // Retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.4.0'
+
+    // JSON Parsing
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
 }

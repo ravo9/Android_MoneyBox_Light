@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="development.dreamcatcher.moneyboxlight.LoginActivity">
+    tools:context="development.dreamcatcher.moneyboxlight.Activities.LoginActivity">
 
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="210dp"
         android:layout_height="wrap_content"
 
         app:layout_constraintLeft_toLeftOf="parent"
@@ -18,27 +18,30 @@
 
         <EditText
             android:id="@+id/editText_email"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="80dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="E-mail"
-            app:layout_constraintBottom_toBottomOf="@id/editText_password"
-            android:layout_marginBottom="80dp" />
+            android:text="test+env12@moneyboxapp.com"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@id/editText_password" />
 
         <EditText
             android:id="@+id/editText_password"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="100dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Password"
-            app:layout_constraintBottom_toBottomOf="@id/btn_login"
-            android:layout_marginBottom="100dp" />
+            android:password="true"
+            android:text="Money$$box@107"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@id/btn_login" />
 
         <Button
             android:id="@+id/btn_login"
-            android:layout_width="210dp"
+            android:layout_width="match_parent"
             android:layout_height="43dp"
             android:text="Login"
             app:layout_constraintBottom_toBottomOf="parent" />
