@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="development.dreamcatcher.moneyboxlight.Activities.AccountsActivity">
+    tools:context="development.dreamcatcher.moneyboxlight.Activities.IsaAccountActivity">
+
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="210dp"
@@ -13,36 +14,34 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-
-        android:paddingBottom="150dp">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
-            android:id="@+id/textView_title"
+            android:id="@+id/textView_isa_account_state"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="70dp"
             android:ems="10"
-            android:text="Your Accounts"
+            android:text="ISA Account State: LOADING"
             android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="@id/btn_ISA" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_moneybox_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:text="MoneyBox State: LOADING"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@id/textView_isa_account_state" />
 
         <Button
-            android:id="@+id/btn_ISA"
+            android:id="@+id/button_add_10"
             android:layout_width="match_parent"
-            android:layout_height="43dp"
-            android:layout_marginBottom="60dp"
-            android:text="Stocks &amp; Shares ISA"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@id/btn_GIA" />
-
-        <Button
-            android:id="@+id/btn_GIA"
-            android:layout_width="match_parent"
-            android:layout_height="43dp"
-            android:text="General Investment Account"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp"
+            android:text="Add £10 to my MoneyBox"
+            app:layout_constraintTop_toBottomOf="@id/textView_moneybox_state" />
 
     </android.support.constraint.ConstraintLayout>
 

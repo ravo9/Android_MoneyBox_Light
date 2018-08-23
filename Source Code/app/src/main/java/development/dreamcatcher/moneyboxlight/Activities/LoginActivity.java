@@ -22,7 +22,6 @@ public class LoginActivity extends AppCompatActivity {
         viewModel.setContext(this);
 
         btnLogin = findViewById(R.id.btn_login);
-
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { viewModel.logIn(); }

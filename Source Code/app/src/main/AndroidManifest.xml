@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.AccountsActivity"></activity>
+        <activity android:name=".Activities.AccountsActivity" />
+        <activity android:name=".Activities.IsaAccountActivity" />
     </application>
 
 </manifest>

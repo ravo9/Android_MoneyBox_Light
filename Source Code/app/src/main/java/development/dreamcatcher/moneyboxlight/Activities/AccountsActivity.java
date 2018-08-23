@@ -1,8 +1,10 @@
 package development.dreamcatcher.moneyboxlight.Activities;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import development.dreamcatcher.moneyboxlight.R;
 import development.dreamcatcher.moneyboxlight.ViewModels.AccountsViewModel;
@@ -10,7 +12,7 @@ import development.dreamcatcher.moneyboxlight.ViewModels.AccountsViewModel;
 public class AccountsActivity extends AppCompatActivity {
 
     private AccountsViewModel viewModel;
-    private Button btnSsisa, btnGia;
+    private Button btnIsa, btnGia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +20,14 @@ public class AccountsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_accounts);
 
         viewModel = ViewModelProviders.of(this).get(AccountsViewModel.class);
-        btnSsisa = findViewById(R.id.btn_SSISA);
+        viewModel.setContext(this);
+
+        btnIsa = findViewById(R.id.btn_ISA);
         btnGia = findViewById(R.id.btn_GIA);
+
+        btnIsa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { viewModel.openIsaAccountActivity(); }
+        });
     }
 }
