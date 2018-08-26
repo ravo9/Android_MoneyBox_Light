@@ -15,6 +15,9 @@ public class HttpMessage {
 
     private class Product {
 
+        @SerializedName("ProductId")
+        Integer productId;
+
         @SerializedName("InvestorProductId")
         Integer investorProductId;
 
@@ -29,12 +32,22 @@ public class HttpMessage {
         products = new ArrayList<>();
     }
 
-    public AccountData getAccountData() {
+    public AccountData getIsaAccountData() {
 
+        Integer productId = products.get(0).productId;
         Integer investorProductId = products.get(0).investorProductId;
         Float moneyBoxState = products.get(0).moneyBoxState;
         Float accountState = products.get(0).accountState;
-        return new AccountData(moneyBoxState, accountState, investorProductId);
+        return new AccountData(productId, moneyBoxState, accountState, investorProductId);
+    }
+
+    public AccountData getGiaAccountData() {
+
+        Integer productId = products.get(1).productId;
+        Integer investorProductId = products.get(1).investorProductId;
+        Float moneyBoxState = products.get(1).moneyBoxState;
+        Float accountState = products.get(1).accountState;
+        return new AccountData(productId, moneyBoxState, accountState, investorProductId);
     }
 
 

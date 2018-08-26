@@ -18,14 +18,14 @@ public class ApiUtils {
         return RetrofitClient.getClient(BASE_URL).create(ApiClient.class);
     }
 
-    public static void callApiLoginRequest(ApiClient apiClient) {
+    public static void requestLogin(ApiClient apiClient) {
 
         apiClient.login("test+env12@moneyboxapp.com", "Money$$box@107", "").enqueue(new Callback<HttpMessage>() {
 
             @Override
             public void onResponse(Call<HttpMessage> call, Response<HttpMessage> response) {
 
-                Log.d("HTTP CODE: ", String.valueOf(response.code()));
+                Log.i("HTTP CODE: ", String.valueOf(response.code()));
 
                 if(response.isSuccessful()) {
                     Log.i("INFO: ", "Token: " + response.body().getBearerToken());
@@ -41,7 +41,10 @@ public class ApiUtils {
     }
 
 
-    public static MutableLiveData<AccountData> callGetIsaAccountDataRequest(ApiClient apiClient, MutableLiveData<AccountData> data) {
+    public static MutableLiveData<AccountData> requestAccountData(Integer accountType, ApiClient apiClient, MutableLiveData<AccountData> data) {
+
+        // 1 - ISA Account Type
+        // 2 - GIA Account Type
 
         String bearerToken = "Bearer " + DataRepository.dataRepository.getBearerToken();
         apiClient.getAccountData(bearerToken).enqueue(new Callback<HttpMessage>() {
@@ -52,8 +55,26 @@ public class ApiUtils {
                 Log.d("HTTP CODE: ", String.valueOf(response.code()));
 
                 if(response.isSuccessful()) {
-                    data.setValue(response.body().getAccountData());
-                    DataRepository.dataRepository.setIsaInvestorProductId(response.body().getAccountData().getInvestorProductId());
+
+                    // Return proper account data to the caller
+                    if (data != null) {
+                        if (accountType == 1)
+                            data.setValue(response.body().getIsaAccountData());
+                        else if (accountType == 2)
+                            data.setValue(response.body().getGiaAccountData());
+                    }
+
+                    // Update internal DB
+                    if (accountType == 1)
+                        DataRepository.updateStoredAccount(1, response.body().getIsaAccountData());
+                    else if (accountType == 2)
+                        DataRepository.updateStoredAccount(2, response.body().getGiaAccountData());
+
+                    // Update stored investor products IDs.
+                    if (accountType == 1)
+                        DataRepository.dataRepository.setIsaInvestorProductId(response.body().getIsaAccountData().getInvestorProductId());
+                    else if (accountType == 2)
+                        DataRepository.dataRepository.setGiaInvestorProductId(response.body().getGiaAccountData().getInvestorProductId());
                 }
             }
 
@@ -67,7 +88,7 @@ public class ApiUtils {
     }
 
 
-    public static void callApiAdd10ToMoneyBoxRequest(ApiClient apiClient, Integer investorProductId) {
+    public static void requestAdd10MoneyBox(Integer accountType, ApiClient apiClient, Integer investorProductId) {
 
         String bearerToken = "Bearer " + DataRepository.dataRepository.getBearerToken();
         apiClient.moneyBoxAdd10( bearerToken, 10.0f, investorProductId).enqueue(new Callback<HttpMessage>() {
@@ -75,10 +96,13 @@ public class ApiUtils {
             @Override
             public void onResponse(Call<HttpMessage> call, Response<HttpMessage> response) {
 
-                Log.d("HTTP CODE: ", String.valueOf(response.code()));
+                Log.i("HTTP CODE: ", String.valueOf(response.code()));
 
                 if(response.isSuccessful())
-                    Log.i("INFO: ", "10 added successfully!");
+                    Log.i("INFO: ", "10 Pounds added successfully!");
+
+                // Update internal DB
+                requestAccountData(accountType, apiClient, null);
             }
 
             @Override

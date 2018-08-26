@@ -6,30 +6,32 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import development.dreamcatcher.moneyboxlight.R;
+import development.dreamcatcher.moneyboxlight.ViewModels.GiaAccountViewModel;
 import development.dreamcatcher.moneyboxlight.ViewModels.IsaAccountViewModel;
 
-public class IsaAccountActivity extends AppCompatActivity {
+public class GiaAccountActivity extends AppCompatActivity {
 
-    private IsaAccountViewModel viewModel;
-    private TextView textViewIsaAccountState, textViewMoneyBoxState;
+    private GiaAccountViewModel viewModel;
+    private TextView textViewGiaAccountState, textViewMoneyBoxState;
     private Button buttonAdd10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_isa_account);
+        setContentView(R.layout.activity_gia_account);
 
         viewModel.setContext(this);
-        viewModel = ViewModelProviders.of(this).get(IsaAccountViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(GiaAccountViewModel.class);
 
-        textViewIsaAccountState = findViewById(R.id.textView_isa_account_state);
+        textViewGiaAccountState = findViewById(R.id.textView_gia_account_state);
         textViewMoneyBoxState = findViewById(R.id.textView_moneybox_state);
         buttonAdd10 = findViewById(R.id.button_add_10);
 
-        viewModel.isaAccountData().observe(this, isaAccountData -> {
-            textViewIsaAccountState.setText("ISA Account State: " + String.valueOf(isaAccountData.getAccountState()));
-            textViewMoneyBoxState.setText("MoneyBox State: " + String.valueOf(isaAccountData.getMoneyBoxState()));
+        viewModel.giaAccountData().observe(this, giaAccountData -> {
+            textViewGiaAccountState.setText("GIA Account State: " + String.valueOf(giaAccountData.getAccountState()));
+            textViewMoneyBoxState.setText("MoneyBox State: " + String.valueOf(giaAccountData.getMoneyBoxState()));
         });
 
         buttonAdd10.setOnClickListener(new View.OnClickListener() {

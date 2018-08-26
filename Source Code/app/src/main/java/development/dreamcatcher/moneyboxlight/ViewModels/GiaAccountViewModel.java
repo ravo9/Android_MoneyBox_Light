@@ -7,14 +7,14 @@ import development.dreamcatcher.moneyboxlight.Data.AccountData;
 import development.dreamcatcher.moneyboxlight.Data.DataRepository;
 
 
-public class IsaAccountViewModel extends ViewModel {
+public class GiaAccountViewModel extends ViewModel {
 
     private DataRepository dataRepository;
     private static Context context;
 
-    public LiveData<AccountData> isaAccountData() { return dataRepository.isaAccountData(); }
+    public LiveData<AccountData> giaAccountData() { return dataRepository.giaAccountData(); }
 
-    public IsaAccountViewModel() {
+    public GiaAccountViewModel() {
         DataRepository.initialize(context);
         this.dataRepository = DataRepository.dataRepository;
     }
@@ -24,7 +24,7 @@ public class IsaAccountViewModel extends ViewModel {
     public void add10ToMoneyBox() {
 
         // API Request
-        try { dataRepository.add10ToMoneyBox(1, DataRepository.dataRepository.getIsaInvestorProductId()); }
+        try { dataRepository.add10ToMoneyBox(2, DataRepository.dataRepository.getGiaInvestorProductId()); }
         catch (Exception ex) {}
     }
 }

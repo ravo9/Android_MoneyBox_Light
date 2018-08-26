@@ -29,5 +29,10 @@ public class AccountsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) { viewModel.openIsaAccountActivity(); }
         });
+
+        btnGia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { viewModel.openGiaAccountActivity(); }
+        });
     }
 }

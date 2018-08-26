@@ -20,6 +20,7 @@
         </activity>
         <activity android:name=".Activities.AccountsActivity" />
         <activity android:name=".Activities.IsaAccountActivity" />
+        <activity android:name=".Activities.GiaAccountActivity" />
     </application>
 
 </manifest>
