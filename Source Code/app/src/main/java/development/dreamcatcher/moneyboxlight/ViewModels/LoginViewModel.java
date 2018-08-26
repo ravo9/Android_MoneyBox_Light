@@ -14,17 +14,15 @@ import development.dreamcatcher.moneyboxlight.Data.DataRepository;
 public class LoginViewModel extends ViewModel {
 
     private DataRepository dataRepository;
-    public static Context context;
+    private static Context context;
     private Intent intent;
 
     public LoginViewModel() {
-
-        Log.d("Flag1", "B");
         DataRepository.initialize(context);
         dataRepository = DataRepository.dataRepository;
     }
 
-    public void setContext(Context context) { this.context = context; }
+    public static void setContext(Context c) { context = c; }
 
     public void logIn() {
 
@@ -47,7 +45,6 @@ public class LoginViewModel extends ViewModel {
 
     public void requestEntrance() {
 
-        openAccountsActivity();
         if (dataRepository.isLoggedIn())
             openAccountsActivity();
         else {
@@ -59,9 +56,7 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void openAccountsActivity() {
-
         intent = new Intent(context, AccountsActivity.class);
         context.startActivity(intent);
-        //finish();
     }
 }

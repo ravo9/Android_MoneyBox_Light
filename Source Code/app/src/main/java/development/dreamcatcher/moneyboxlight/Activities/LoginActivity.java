@@ -18,9 +18,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        LoginViewModel.context = this;
-        viewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         viewModel.setContext(this);
+        viewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
 
         btnLogin = findViewById(R.id.btn_login);
 

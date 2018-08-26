@@ -56,14 +56,6 @@ public class ApiUtils {
 
                 if(response.isSuccessful()) {
 
-                    // Return proper account data to the caller
-                    if (data != null) {
-                        if (accountType == 1)
-                            data.setValue(response.body().getIsaAccountData());
-                        else if (accountType == 2)
-                            data.setValue(response.body().getGiaAccountData());
-                    }
-
                     // Update internal DB
                     if (accountType == 1)
                         DataRepository.updateStoredAccount(1, response.body().getIsaAccountData());
@@ -75,6 +67,14 @@ public class ApiUtils {
                         DataRepository.dataRepository.setIsaInvestorProductId(response.body().getIsaAccountData().getInvestorProductId());
                     else if (accountType == 2)
                         DataRepository.dataRepository.setGiaInvestorProductId(response.body().getGiaAccountData().getInvestorProductId());
+
+                    // Return proper account data to the caller
+                    if (data != null) {
+                        if (accountType == 1)
+                            data.setValue(response.body().getIsaAccountData());
+                        else if (accountType == 2)
+                            data.setValue(response.body().getGiaAccountData());
+                    }
                 }
             }
 
@@ -101,7 +101,7 @@ public class ApiUtils {
                 if(response.isSuccessful())
                     Log.i("INFO: ", "10 Pounds added successfully!");
 
-                // Update internal DB
+                // Refresh stored account data ( internal DB )
                 requestAccountData(accountType, apiClient, null);
             }
 

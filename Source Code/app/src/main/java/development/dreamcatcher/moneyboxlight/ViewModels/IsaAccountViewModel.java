@@ -22,7 +22,6 @@ public class IsaAccountViewModel extends ViewModel {
     public static void setContext(Context c) { context = c; }
 
     public void add10ToMoneyBox() {
-
         // API Request
         try { dataRepository.add10ToMoneyBox(1, DataRepository.dataRepository.getIsaInvestorProductId()); }
         catch (Exception ex) {}

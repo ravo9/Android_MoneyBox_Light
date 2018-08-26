@@ -22,7 +22,6 @@ public class GiaAccountViewModel extends ViewModel {
     public static void setContext(Context c) { context = c; }
 
     public void add10ToMoneyBox() {
-
         // API Request
         try { dataRepository.add10ToMoneyBox(2, DataRepository.dataRepository.getGiaInvestorProductId()); }
         catch (Exception ex) {}

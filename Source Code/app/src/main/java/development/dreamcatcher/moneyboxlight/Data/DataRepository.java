@@ -25,20 +25,16 @@ public class DataRepository {
         final MutableLiveData<AccountData> data = new MutableLiveData<>();
         final LiveData<AccountData> account;
 
-        // Check if the account data is stored in the internal DB.
-        if (!isIsaAccountStored()) {
-
+        // Check if the account data is already stored in internal DB.
+        if (!isAccountStored(1)) {
             // If not - call API to fetch the data from a server (using separate thread),
             // update internal database, and return this fetched data.
             ApiUtils.requestAccountData(1, apiClient, data);
-            Log.d("Flag019: ", "01");
             return data;
         }
 
         // If the data is already stored - return the version from internal DB.
         account = dataRepository.internalDatabase.accountDao().loadIsaAccount();
-        Log.d("Flag019: ", "02");
-
         return account;
     }
 
@@ -47,7 +43,7 @@ public class DataRepository {
         final MutableLiveData<AccountData> data = new MutableLiveData<>();
         final LiveData<AccountData> account;
 
-        if (!isGiaAccountStored()) {
+        if (!isAccountStored(2)) {
             ApiUtils.requestAccountData(2, apiClient, data);
             return data;
         }
@@ -55,7 +51,6 @@ public class DataRepository {
         account = dataRepository.internalDatabase.accountDao().loadGiaAccount();
         return account;
     }
-
 
     public static void initialize(Context context) {
 
@@ -68,7 +63,6 @@ public class DataRepository {
         if (apiClient == null)
             apiClient = ApiUtils.getAPIService();
     }
-
 
     public void add10ToMoneyBox(Integer accountType, Integer investorProductId) {
         ApiUtils.requestAdd10MoneyBox(accountType, apiClient, investorProductId);
@@ -86,14 +80,18 @@ public class DataRepository {
     public void setGiaInvestorProductId(Integer giaInvestorProductId) { this.giaInvestorProductId = giaInvestorProductId; }
     public Integer getGiaInvestorProductId() { return this.giaInvestorProductId; }
 
-    public InternalDatabase getInternalDatabase() { return internalDatabase; }
+    private InternalDatabase getInternalDatabase() { return internalDatabase; }
 
-    public static Boolean isIsaAccountStored() {
-        return (dataRepository.getInternalDatabase().accountDao().getIsaAccountsAmount() != 0);
-    }
+    private static Boolean isAccountStored(Integer accountType) {
 
-    public static Boolean isGiaAccountStored() {
-        return (dataRepository.getInternalDatabase().accountDao().getGiaAccountsAmount() != 0);
+        // 1 - ISA Account Type
+        // 2 - GIA Account Type
+
+        if (accountType == 1)
+            return (dataRepository.getInternalDatabase().accountDao().getIsaAccountsAmount() != 0);
+        else if (accountType == 2)
+            return (dataRepository.getInternalDatabase().accountDao().getGiaAccountsAmount() != 0);
+        else return false;
     }
 
     public static void updateStoredAccount(Integer accountType, AccountData accountData) {
@@ -103,14 +101,8 @@ public class DataRepository {
 
         AccountDao dao = dataRepository.getInternalDatabase().accountDao();
 
-        if (accountType == 1) {
-            if (isIsaAccountStored()) dao.update(accountData);
-            else dao.save(accountData);
-        }
-        else {
-            if (isGiaAccountStored()) dao.update(accountData);
-            else dao.save(accountData);
-        }
+        if (isAccountStored(accountType)) dao.update(accountData);
+        else dao.save(accountData);
     }
 
     public boolean isLoggedIn() { return (bearerToken != null); }
